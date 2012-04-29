@@ -1,0 +1,62 @@
+.span7
+	%table.table
+		%thead
+			%tr
+				%th Name
+				%th City
+				%th State
+				%th Phone Number
+				%th Toll Free
+				%th Fax Number
+				%th
+		%tbody
+			- @customers.each do |customer|
+				%tr
+					%td= customer.name
+					%td= customer.city
+					%td= customer.state
+					%td= customer.phone_number
+					%td= customer.toll_free
+					%td= customer.fax_number
+					%td
+						= link_to customer_path(customer), :class => 'pjax'  do
+							%i.icon-search
+						= link_to customer_path(customer), method: :delete, :confirm => 'Are you sure?' do
+							%i.icon-remove
+.span5
+	.sidebar{:data => {"pjax-container" => true}}
+		- if @customer.nil?
+			.alert.alert-error
+				No Results
+				.pull-right= link_to 'Clear Search', customers_path
+		-else
+			.well-header
+				= @customer.name
+			.well
+				.row-fluid
+					.span6
+						.field
+							%b Unit #
+							%br
+							= @customer.unit_number
+						.field
+							%b City
+							%br
+							= @customer.city
+						.field
+							%b Country
+							%br
+							= @customer.country
+					.span6
+						.field
+							%b Address
+							%br
+							= @customer.street_address
+						.field
+							%b State
+							%br
+							= @customer.state
+						.field
+							%b Postal Code
+							%br
+							= @customer.postal_code

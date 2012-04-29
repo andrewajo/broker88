@@ -1,0 +1,80 @@
+.span7
+	%table.table
+		%thead
+			%tr
+				%th Name
+				%th City
+				%th State
+				%th Phone Number
+				%th Toll Free
+				%th Fax Number
+				%th
+		%tbody
+			- @shippers.each do |shipper|
+				%tr
+					%td= shipper.name
+					%td= shipper.city
+					%td= shipper.state
+					%td= shipper.phone_number
+					%td= shipper.toll_free
+					%td= shipper.fax_number
+					%td
+						= link_to shipper_path(shipper), :class => 'pjax' do
+							%i.icon-search
+						= link_to shipper_path(shipper), method: :delete, :confirm => 'Are you sure?' do
+							%i.icon-remove
+.span5
+	.sidebar{:data => {"pjax-container" => true}}
+		.well-header
+			New shipper
+		.well
+			= form_for @shipper do |f|
+				.row-fluid
+					.span6
+						.field
+							= f.label :status
+							= f.text_field :status
+				.row-fluid
+					.span12
+						.field.full
+							= f.label :name
+							= f.text_field :name
+				.row-fluid
+					.span6
+						.field
+							= f.label :phone_number
+							= f.text_field :phone_number
+						.field
+							= f.label :toll_free
+							= f.text_field :toll_free
+						.field
+							= f.label :unit_number
+							= f.text_field :unit_number
+						.field
+							= f.label :city
+							= f.text_field :city
+						.field
+							= f.label :country
+							= f.text_field :country
+					.span6
+						.field
+							= f.label :fax_number
+							= f.text_field :fax_number
+						.field
+							= f.label :street_address
+							= f.text_field :street_address
+						.field
+							= f.label :state
+							= f.text_field :state
+						.field
+							= f.label :postal_code
+							= f.text_field :postal_code
+				%br
+				.row-fluid
+					.span8
+						%br
+					.span4
+						.actions
+							= f.submit 'Save', :class => 'btn btn-primary'
+							= link_to :action => "index" do
+								%span.btn.btn-primary Cancel

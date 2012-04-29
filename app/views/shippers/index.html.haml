@@ -1,0 +1,62 @@
+.span7
+	%table.table
+		%thead
+			%tr
+				%th Name
+				%th City
+				%th State
+				%th Phone Number
+				%th Toll Free
+				%th Fax Number
+				%th
+		%tbody
+			- @shippers.each do |shipper|
+				%tr
+					%td= shipper.name
+					%td= shipper.city
+					%td= shipper.state
+					%td= shipper.phone_number
+					%td= shipper.toll_free
+					%td= shipper.fax_number
+					%td
+						= link_to shipper_path(shipper), :class => 'pjax'  do
+							%i.icon-search
+						= link_to shipper_path(shipper), method: :delete, :confirm => 'Are you sure?' do
+							%i.icon-remove
+.span5
+	.sidebar{:data => {"pjax-container" => true}}
+		- if @shipper.nil?
+			.alert.alert-error
+				No Results
+				.pull-right= link_to 'Clear Search', shippers_path
+		-else
+			.well-header
+				= @shipper.name
+			.well
+				.row-fluid
+					.span6
+						.field
+							%b Unit #
+							%br
+							= @shipper.unit_number
+						.field
+							%b City
+							%br
+							= @shipper.city
+						.field
+							%b Country
+							%br
+							= @shipper.country
+					.span6
+						.field
+							%b Address
+							%br
+							= @shipper.street_address
+						.field
+							%b State
+							%br
+							= @shipper.state
+						.field
+							%b Postal Code
+							%br
+							= @shipper.postal_code

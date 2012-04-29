@@ -1,0 +1,99 @@
+.row-fluid
+	.span12
+		= nested_form_for @load do |f|
+			.row-fluid
+				.span6
+					.well-header
+						New Load
+					.well
+						.row-fluid
+							.span6
+								.field
+									= f.label :customer_name
+									= f.autocomplete_field :customer_name, autocomplete_customer_name_loads_path, :update_elements => {:id => "#load_customer_id_field"}
+									= f.hidden_field :customer_id, :id => 'load_customer_id_field'
+									= f.label :customer_rate
+									= f.text_field :customer_rate
+							.span6
+								.field
+									= f.label :carrier_name
+									= f.autocomplete_field :carrier_name, autocomplete_carrier_name_loads_path, :update_elements => {:id => "#load_carrier_id_field"}
+									= f.hidden_field :carrier_id, :id => 'load_carrier_id_field'
+									= f.label :carrier_rate
+									= f.text_field :carrier_rate
+			.row-fluid						
+				.span6
+					= f.link_to_add "Add Pick", :picks, :node => "#pickadd", :position => :before, :type => 'outer'
+					= f.fields_for :picks do |p|			
+						.row-fluid
+							.span12
+								.well-header
+									Picks
+									.pull-right
+										= p.link_to_remove do
+											%i.icon-remove
+								.well
+									.row-fluid
+										.span6
+											.field
+												= p.label :date
+												= p.text_field :date
+										.span6
+											.field
+												= p.label :pick_up_number
+												= p.text_field :pick_up_number
+									.heading.row-fluid
+										.span2 Amount
+										.span4 Unit
+										.span6
+											.row-fluid
+												.span11.field
+													Commodity
+												.field.pull-right
+													= p.link_to_add :pick_items, :node => "#pick_item_add", :position => :before, :type => 'inner' do
+														%i.icon-plus
+									= p.fields_for :pick_items do |pi|
+										.loaditem.row-fluid
+											.span2= pi.text_field :amount
+											.span4= pi.text_field :unit
+											.span6
+												.row-fluid
+													.span11.field
+														= pi.text_field :commodity
+													.field.pull-right
+														= pi.link_to_remove do
+															%i.icon-remove
+									#pick_item_add
+
+					#pickadd
+				.span6
+					= f.link_to_add "Add Drop", :drops, :node => "#dropadd", :position => :before, :type => 'outer'
+					= f.fields_for :drops do |d|
+						.row-fluid
+							.span12
+								.well-header
+									Drops
+									.pull-right
+										= d.link_to_remove do
+											%i.icon-remove
+								.well
+									.row-fluid
+										.span6
+											.field
+												= d.label :date
+												= d.text_field :date
+										.span6
+											.field
+												= d.label :po_number
+												= d.text_field :po_number
+
+					#dropadd
+			.well-header
+				.row-fluid
+					.span10
+						%br
+					.span2
+						.pull-right
+							= link_to loads_path do 
+								%span.btn Cancel
+							= f.submit 'Save Load', :class => 'btn'

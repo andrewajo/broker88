@@ -1,0 +1,60 @@
+.span7
+	%table.table
+		%thead
+			%tr
+				%th Load #
+				%th Carrier
+				%th Carrier Rate
+				%th Customer
+				%th Customer Rate
+				%th
+		%tbody
+			- @loads.each do |load|
+				%tr
+					%td= load.load_number
+					%td= load.carrier_name
+					%td= load.carrier_rate
+					%td= load.customer_name
+					%td= load.customer_rate
+					%td
+						= link_to load_path(load), :class => 'pjax'  do
+							%i.icon-search
+						= link_to load_path(load), method: :delete, :confirm => 'Are you sure?' do
+							%i.icon-remove
+.span5
+	.sidebar{:data => {"pjax-container" => true}}
+		- if @load.nil?
+			.alert.alert-error
+				No Results
+				.pull-right= link_to 'Clear Search', loads_path
+		-else
+			.well-header
+				= @load.load_number
+			.well
+				.row-fluid
+					.span6
+						.field
+							%b Customer
+							%br
+							= @load.customer_name
+						.field
+							%b Carrier Rate
+							%br
+							= @load.customer_rate
+						.field
+							%b Driver Cell
+							%br
+							= @load.driver_cell
+					.span6
+						.field
+							%b Carrier
+							%br
+							= @load.carrier_name
+						.field
+							%b Carrier Rate
+							%br
+							= @load.carrier_rate
+						.field
+							%b Driver Cell
+							%br
+							= @load.driver_cell

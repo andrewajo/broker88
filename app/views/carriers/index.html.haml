@@ -1,0 +1,67 @@
+.span8
+		%table.table.table-condensed.overview
+			%thead
+				%tr
+					%th Name
+					%th MC #
+					%th City
+					%th State
+					%th Phone Number
+					%th Toll Free
+					%th Fax Number
+					%th Ins Exp
+					%th
+				%tbody
+					- @carriers.each do |carrier|
+						%tr{'data-url' => carrier_url(carrier)}
+							%td= carrier.name
+							%td= carrier.mc_number
+							%td= carrier.city
+							%td= carrier.state
+							%td= carrier.phone_number
+							%td= carrier.toll_free
+							%td= carrier.fax_number
+							%td= carrier.insurance_expiry
+							%td
+								= link_to carrier_path(carrier), :class => 'pjax'  do
+									%i.icon-search
+								= link_to carrier_path(carrier), method: :delete, :confirm => 'Are you sure?' do
+									%i.icon-remove
+.span4
+	.sidebar{:data => {"pjax-container" => true}}
+		- if @carrier.nil?
+			.alert.alert-error
+				No Results
+				.pull-right= link_to 'Clear Search', carriers_path
+		-else
+
+			.well-header
+				= @carrier.name
+			.well
+				.row-fluid
+					.span6
+						.field
+							%b Unit #
+							%br
+							= @carrier.unit_number
+						.field
+							%b City
+							%br
+							= @carrier.city
+						.field
+							%b Country
+							%br
+							= @carrier.country
+					.span6
+						.field
+							%b Address
+							%br
+							= @carrier.street_address
+						.field
+							%b State
+							%br
+							= @carrier.state
+						.field
+							%b Postal Code
+							%br
+							= @carrier.postal_code

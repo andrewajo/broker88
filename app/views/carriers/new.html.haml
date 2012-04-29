@@ -1,0 +1,99 @@
+.span8
+	%table.table.table-condensed
+		%thead
+			%tr
+				%th Name
+				%th City
+				%th State
+				%th Phone
+				%th Toll Free
+				%th Fax
+				%th Ins Exp
+				%th
+		%tbody
+			- @carriers.each do |carrier|
+				%tr
+					%td= carrier.name
+					%td= carrier.city
+					%td= carrier.state
+					%td= carrier.phone_number
+					%td= carrier.toll_free
+					%td= carrier.fax_number
+					%td= carrier.insurance_expiry
+					%td
+						= link_to carrier_path(carrier), :class => 'pjax' do
+							%i.icon-search
+						= link_to carrier_path(carrier), method: :delete, :confirm => 'Are you sure?' do
+							%i.icon-remove
+.span4
+	.sidebar{:data => {"pjax-container" => true}}
+		.well-header
+			New Carrier
+		.well
+			= form_for @carrier do |f|
+				.row-fluid
+					.span6
+						.field
+							= f.label :status
+							= f.text_field :status
+				.row-fluid
+					.span12
+						.field.full
+							= f.label :name
+							= f.text_field :name
+				.row-fluid
+					.span6
+						.field
+							= f.label :phone_number
+							= f.text_field :phone_number
+						.field
+							= f.label :email
+							= f.text_field :email
+						.field
+							= f.label :unit_number
+							= f.text_field :unit_number
+						.field
+							= f.label :city
+							= f.text_field :city
+						.field
+							= f.label :country
+							= f.text_field :country
+						.field
+							= f.label :insurance_broker
+							= f.text_field :insurance_broker
+						.field
+							= f.label :insurance_cargo_limit
+							= f.text_field :insurance_cargo_limit
+						.field
+							= f.label :reefer_breakdown
+							= f.check_box :reefer_breakdown
+					.span6
+						.field
+							= f.label :fax_number
+							= f.text_field :fax_number
+						.field
+							= f.label :mc_number
+							= f.text_field :mc_number
+						.field
+							= f.label :street_address
+							= f.text_field :street_address
+						.field
+							= f.label :state
+							= f.text_field :state
+						.field
+							= f.label :postal_code
+							= f.text_field :postal_code
+						.field
+							= f.label :insurance_company
+							= f.text_field :insurance_company
+						.field
+							= f.label :insurance_expiry
+							= f.text_field :insurance_expiry
+				.row-fluid
+					.span8
+						%br
+					.span4
+						.actions
+							= f.submit 'Save', :class => 'btn btn-primary'
+							= link_to :action => "index" do
+								%span.btn.btn-primary Cancel
