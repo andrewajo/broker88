@@ -1,13 +1,21 @@
+.tableheader
+	margin: 0px
+	th
+		border-bottom: 1px solid #AAA
+
 #scrollcontent
-	height: 224px
+	height: 400px
 	.viewport
-		width: 798px - 10px
-		height: 224px
+		width: 98%
+		height: 400px
 		overflow: hidden
 		position: relative
+		table
+			width: 100%%
 	.overview
 		list-style: none
 		position: absolute
+		width: 1024px - 14px
 		left: 0
 		top: 0
 	.thumb
@@ -19,7 +27,7 @@
 		float: right
 		width: 15px
 	.track
-		background-color: #AAA
+		background-color: #FFF
 		height: 100%
 		width: 13px
 		position: relative
@@ -38,3 +46,4 @@
 
 .active-row, .table tbody tr:hover.active-row td
 	background: #DFD
+	font-weight: bold

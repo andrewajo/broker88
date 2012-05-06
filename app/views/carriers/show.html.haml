@@ -9,7 +9,6 @@
 				%th Toll Free
 				%th Fax
 				%th Ins Exp
-				%th
 		%tbody
 			- @carriers.each do |carrier|
 				%tr{'data-url' => carrier_url(carrier)}
@@ -20,9 +19,7 @@
 					%td= carrier.toll_free
 					%td= carrier.fax_number
 					%td= carrier.insurance_expiry
-					%td
-						= link_to carrier_path(carrier), method: :delete, :confirm => 'Are you sure?' do
-							%i.icon-remove
+
 .span4
 	.sidebar{:data => {"pjax-container" => true}}
 		.well-header

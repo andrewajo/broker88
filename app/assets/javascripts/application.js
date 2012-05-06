@@ -18,4 +18,5 @@
 //= require nested_form
 //= require autocomplete-rails
 //= require jquery.tinyscrollbar
+//= require jquery.sausage
 //= require_tree .

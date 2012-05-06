@@ -22,7 +22,7 @@ def carrier
       :country => row.at_css("td:nth-child(8)").text,
       :postal_code => row.at_css("td:nth-child(9)").text,
       :status => row.at_css("td:nth-child(10)").text.titleize,
-      :mc_num => row.at_css("td:nth-child(11)").text[2..7],
+      :mc_number => row.at_css("td:nth-child(11)").text[2..7],
       :phone_number => row.at_css("td:nth-child(12)").text,
       :toll_free => row.at_css("td:nth-child(13)").text,
       :fax_number => row.at_css("td:nth-child(14)").text,

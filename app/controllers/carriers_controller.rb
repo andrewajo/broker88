@@ -2,9 +2,16 @@ class CarriersController < ApplicationController
 	def index
 		@page = params[:page] ? params[:page] : 1
 
-		@carriers = Carrier.any_of({:name => Regexp.new("^#{params[:search]}.*", true)}, {:mc_number => Regexp.new("#{params[:search]}.*", true)}).page(@page)
-		#@carriers = Carrier.all
-		@carrier = @carriers.first
+		@search = Carrier.order_by([:name, :asc]).any_of({:name => Regexp.new("^#{params[:search]}.*", true)}, {:mc_number => Regexp.new("#{params[:search]}.*", true)})
+		if @search.count > 0  && params[:search]
+			@carrier = @search.first
+			@carriers = []
+			@carriers += Carrier.where(:name.lt => @carrier.name).order_by([:name, :desc]).limit(7).reverse
+			@carriers << @carrier
+			@carriers += Carrier.where(:name.gt => @carrier.name).order_by([:name, :asc]).limit(7)
+		else
+			@carriers = Carrier.order_by([:name, :asc]).page
+		end
 	end
 
 	def new
